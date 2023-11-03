@@ -52,8 +52,8 @@ navigation:
     layout:
       - section: Use Cases 
         contents: 
-          - page: Charge to Lender 
-            path: ./docs/pages/use-cases/charge-lender.mdx
+          - page: Charge to Ledger 
+            path: ./docs/pages/use-cases/charge-ledger.mdx
           - page: Lead to Lease 
             path: ./docs/pages/use-cases/lead-lease.mdx
           - page: Create a Lead 
