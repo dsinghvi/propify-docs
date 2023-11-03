@@ -1,0 +1,7 @@
+**Write requests are used to create or update data.**
+
+## Overview
+With Propify, you can read, create and update data to and from your customer's property management system (PMS). To understand how Propfiy handles write requests, it is important to understand how Propify thinks about source-of-truth relationships.
+
+## Source of Truth
+Propify does not act as the source of truth. Instead, we rely solely on each PMS to maintain accurate records. This means that when you write data to Propify's API, we will pass the request along to the PMS (immediately) and log the response once we have it. For our enterprise customers, we request an updated version of that record within a few seconds so that Propify data for that record is as fresh as possible. Since this is not enabled for all models across all PMSs, please ask us about this feature for your use case.

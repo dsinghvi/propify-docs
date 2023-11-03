@@ -2,7 +2,7 @@
 
 Tagging a release on this repository will update the:
 
-
+- [propify.docs.buildwithfern.com](propify.docs.buildwithfern.com)
 
 ## What is in this repository?
 

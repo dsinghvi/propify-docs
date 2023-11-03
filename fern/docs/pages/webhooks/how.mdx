@@ -1,0 +1,101 @@
+**Leverage Propify's webhooks to get updates that you care about.**
+
+## Overview 
+
+Many of our customers use webhooks to get updates on events like lease status changes, new leads, and more. We offer webhook events for new and changed data for all of our data models, job statuses and more.
+
+## Why use webhooks?
+
+Webhooks are a way to integrate with Propify so you know about changes to your data in real-time. Instead of polling the API for changes, you can register a webhook and we'll send you a notification when something changes. You can subscribe to changes on a per-data model basis, so you are only notified when the data you care about changes.
+
+## How do webhooks work?
+
+You set up a URL on your system that we will send a POST request to when something changes. We will send you a JSON payload with the data that changed. You can then use that data to update your system.
+
+<CodeBlock title="Example route (in YOUR system) to receive webhook">
+```javascript
+const express = require('express');
+const app = express();
+
+app.post('/webhook/leases', async (req, res) => {
+    const data = req.body;
+
+    // Perform business logic
+    for (const lease of data.results) {
+        const { status: prevStatus } = lease.previous;
+        const { status } = lease.new;
+        if (prevStatus === 'pending' && status === 'approved') {
+            const { email } = lease.tenant;
+            // Send an email to the tenant
+            await app.sendEmail(email, 'Your lease has been approved');
+        }
+    };
+
+    res.send(200);
+});
+```
+</CodeBlock>
+
+Then, in Propify, you can register your webhook URL and subscribe to the events you care about ("Data Update" on the `leases` model in this example).
+
+![Webhook setup in Propify](https://fern-image-hosting.s3.amazonaws.com/propify-webhook-lease-setup.png)
+
+Now each time Propify identifies a change in the leases model for a particular lease in your integration, you will be notified via a POST request to your webhook URL.
+
+Here is an example of how Propify might send a webhook request to your system:
+
+<CodeBlock title="Example webhook sent from Propify">
+```bash 
+POST <your_path>
+Host: <your_domain>
+Content-Type: application/json
+propify-signature: <payload_signature>
+
+{
+    "meta": {
+        "object": "leases",
+        "integration_id": "cuid_1234567890",
+    },
+    "record_id": "cuid_1234567890",
+    "diff": {
+        "previous": { "status": "pending" },
+        "new": { "status": "approved" }
+    }
+}
+```
+</CodeBlock>
+
+<Callout intent = "info">
+The above example is intended to be a simple example of how webhooks work. In practice, you will want to use a more robust system to receive and process webhooks. For example, you would probably want to use a queueing system to ensure that you don't lose any webhook events if your system is down.
+</Callout>
+
+## Important Note for the DATA_NEW event
+
+When you subscribe to a `DATA_NEW` webhook event, it is automatically disabled for the first 24 hours of the creation of your integration. This is to prevent you from receiving a flood of events when you first set up your integration. After 24 hours, the `DATA_NEW` event will be enabled and you will receive a webhook event for every new record that is created in the model to which you are subscribed.
+
+## Signed Payloads
+
+Propify signs every webhook payload. This signature is sent in the `propify-signature` header. You can use this signature to verify that the webhook was sent by Propify and not a malicious third party.
+
+The secret that is used to sign the payload is available in your integration settings. You can find it by going to the "Webhooks" page in the Propify dashboard and clicking on the "Settings" button.
+
+Here is an example of how you might verify the signature in Node.js:
+
+<CodeBlock title = "Example signature verification">
+```javascript 
+import { timingSafeEqual, createHmac } from 'crypto'
+
+const createHmacSignature = ({ data, secret }): string => {
+  return createHmac('sha256', secret).update(data).digest('hex')
+}
+
+const compareSignatures = ({ suppliedSignature, data }): Boolean => {
+  const generatedSignature = createHmacSignature({ data, secret })
+  const source = Buffer.from(suppliedSignature)
+  const comparison = Buffer.from(generatedSignature)
+  return timingSafeEqual(source, comparison)
+}
+
+return compareSignatures({ suppliedSignature: req.headers['propify-signature'], data: req.body })
+```
+</CodeBlock>
