@@ -1,6 +1,6 @@
 # Propify Documentation
 
-Propify uses Fern for documentation. Checkout our docs at [https://propify.docs.buildwithfern.com](propify.docs.buildwithfern.com). 
+Propify uses Fern for documentation. Checkout our docs at [https://propify.docs.buildwithfern.com](https://propify.docs.buildwithfern.com). 
 
 ![Preview](./preview.png)
 
