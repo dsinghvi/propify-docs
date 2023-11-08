@@ -3,9 +3,9 @@ info:
   version: 1.0.0
   title: Propify API
 servers:
-  - url: https://api.getpropify.com
+  - url: https://api.propexo.com
     x-fern-server-name: Production
-  - url: https://api.sandbox.getpropify.com
+  - url: https://api.sandbox.propexo.com
     x-fern-server-name: Sandbox
 components:
   securitySchemes:
@@ -17,7 +17,6 @@ components:
 paths:
   /v1/admin/data-diffs:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get all data diffs
@@ -2109,6 +2108,7 @@ paths:
                     passed as a string and not an integer.
                 middle_name:
                   type: string
+                  maxLength: 30
                   description: The middle name of the applicant.
                 country:
                   type: string
@@ -4769,7 +4769,7 @@ paths:
                           type:
                             - string
                             - "null"
-                          description: Deprecated. Use resident_ids instead
+                          description: Deprecated. Use residents_meta_data instead
                         x_unit_id:
                           type:
                             - string
@@ -5359,7 +5359,7 @@ paths:
                         type:
                           - string
                           - "null"
-                        description: Deprecated. Use resident_ids instead
+                        description: Deprecated. Use residents_meta_data instead
                       x_unit_id:
                         type:
                           - string
@@ -13125,7 +13125,6 @@ paths:
           description: invalid input
   /v1/admin/job-logs/{job_log_id}:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get log by ID
@@ -13254,7 +13253,6 @@ paths:
           description: invalid input
   /v1/admin/job-logs/{job_log_id}/data:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get a link to the job log raw request and response data
@@ -13280,7 +13278,6 @@ paths:
           description: invalid input
   /v1/admin/logs/jobs:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get logs
@@ -13417,7 +13414,6 @@ paths:
           description: invalid input
   /v1/admin/logs/jobs/{id}:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get logs by job ID
@@ -13552,7 +13548,6 @@ paths:
           description: invalid input
   /v1/admin/integrations:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get all my integrations
@@ -13844,7 +13839,6 @@ paths:
         "400":
           description: invalid input
     post:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Create an integration
@@ -14198,7 +14192,6 @@ paths:
           description: invalid input
   /v1/admin/users:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get all my users
@@ -14320,8 +14313,7 @@ paths:
                   - results
         "400":
           description: invalid input
-    post: 
-      x-fern-ignore: true
+    post:
       tags:
         - admin
       summary: Create a user
@@ -14412,7 +14404,6 @@ paths:
           description: invalid input
   /v1/admin/users/{id}:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get user by id
@@ -14535,7 +14526,6 @@ paths:
         "400":
           description: invalid input
     put:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Update a user
@@ -14629,7 +14619,7 @@ paths:
     post:
       tags:
         - amenities
-      summary: Create Amenities
+      summary: Create Amenities - Units | Propify Documentation
       description: Create a unit amenity for any integration. This is a convenience
         endpoint that acts as a generic proxy for all amenity creation
         endpoints.
@@ -15010,7 +15000,6 @@ paths:
           description: invalid input
   /v1/admin/integrations/{integration_id}:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get integration by id
@@ -15283,7 +15272,6 @@ paths:
         "400":
           description: invalid input
     put:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Update an integration
@@ -15625,7 +15613,6 @@ paths:
         "400":
           description: invalid input
     delete:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Delete an integration
@@ -15662,7 +15649,6 @@ paths:
           description: invalid input
   /v1/admin/integrations/{integration_id}/job-schedules:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get job schedules by integration id
@@ -15803,300 +15789,8 @@ paths:
                   - results
         "400":
           description: invalid input
-  /v1/properties/{property_id}/units:
-    post:
-      tags:
-        - units
-      summary: Create unit for property
-      description: Create a unit for a property.
-      security:
-        - bearerAuth: []
-      parameters:
-        - schema:
-            type: string
-            description: The ID of the resource.
-          required: true
-          name: property_id
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                integration_id:
-                  type: string
-                  description: The Propify unique identifier for the integration
-                number:
-                  type: string
-                  description: The number of the unit. For example Unit 20.
-                unit_prefix:
-                  type: string
-                  description: The prefix of the unit. For example Unit 20c.
-                unit_suffix:
-                  type: string
-                  description: "The suffix of of the unit. For example c20. "
-                space_number:
-                  type: string
-                  description: The space number for the unit.
-                max_occupants:
-                  type: string
-                  description: The maximum number of occupants per specific unit.
-                max_pets:
-                  type: string
-                  description: The maximum number of pets per specific unit.
-                bedrooms:
-                  type:
-                    - string
-                    - "null"
-                  description: The number of bedrooms in the unit.
-                bathrooms:
-                  type:
-                    - string
-                    - "null"
-                  description: The number of bathrooms in the unit.
-                square_feet:
-                  type: number
-                  description: The size of the unit in square feet.
-                note:
-                  type: string
-                  description: Notes about the unit.
-                unit_gender_id:
-                  type: string
-                  description: The gender id for the unit.
-                marking_number:
-                  type: string
-                  description: The marking number for the unit.
-                certificate_of_occupancy_date:
-                  type: string
-                  format: date-time
-                  description: The certificate of occupancy for the unit.
-                is_shown_on_website:
-                  type: boolean
-                  description: The unit is listed online.
-                property_building_id:
-                  type: string
-                  description: The id of the property building.
-                floor_plan_code:
-                  type: string
-                  description: The code for the floor plan.
-                unit_type_id:
-                  type: string
-                  description: The id for the unit type.
-                property_floor_id:
-                  type: string
-                  description: The id for the property floor.
-                unit_exclusion_reason_type_id:
-                  type: string
-                  description: The unit exclusion reason id.
-                unit_space_status_type_id:
-                  type: string
-                  description: The unit space status type id.
-                lease_term_in_months:
-                  type: integer
-                  enum:
-                    - 3
-                    - 6
-                    - 9
-                    - 12
-                    - 15
-                    - 18
-                  description: The lease term in months for the unit.
-                available_on:
-                  type: string
-                  format: date-time
-                  description: The date when the unit is available.
-                make_ready_date:
-                  type: string
-                  format: date-time
-                  description: The make ready date.
-                is_furnished:
-                  type: boolean
-                  description: The unit is furnished.
-                tax_credit_unit_number:
-                  type: string
-                  description: The tax credit number for the unit.
-                amenity_ids:
-                  type: string
-                  description: A comma separated list of unit-level amenity ids for the unit.
-                country:
-                  type: string
-                  description: The country of the unit.
-                address_1:
-                  type: string
-                  description: The first address line of the unit.
-                address_2:
-                  type: string
-                  description: The second address line of the unit.
-                city:
-                  type: string
-                  description: The city of the unit.
-                state:
-                  type: string
-                  description: The state of the unit.
-                zip:
-                  type: string
-                  description: The zip code of the unit.
-                category:
-                  type: string
-                  enum:
-                    - Residential
-                    - Commercial
-                  description: The category of the unit.
-                type:
-                  type: string
-                  enum:
-                    - Apartment
-                    - House
-                  description: The type of the unit.
-                name:
-                  type: string
-                  description: 'The name of the unit. Example: "Unit 3".'
-                abbreviation:
-                  type: string
-                  description: 'The abbreviation of the unit. Example: "UNIT3"'
-                notes:
-                  type: string
-                  description: Notes about the unit.
-                rent_amount_market_in_cents:
-                  type: number
-                  description: The market rent cost of the unit, in cents.
-                intgration_id:
-                  type: string
-              required:
-                - intgration_id
-      responses:
-        "200":
-          description: Create a unit for a property.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  job_id:
-                    type: string
-                    description: The ID of the job created to handle this operation
-                  data:
-                    type: object
-                    properties: {}
-                    description: Returned data from the operation. This is dependent on the vendor
-                      specific endpoint's returned data.
-                required:
-                  - job_id
-                  - data
-        "400":
-          description: invalid input
-  /v1/properties/{property_id}/units/{unit_id}:
-    put:
-      tags:
-        - units
-      summary: Update unit for property
-      description: Update a unit for a property.
-      security:
-        - bearerAuth: []
-      parameters:
-        - schema:
-            type: string
-            description: The ID of the resource.
-          required: true
-          name: property_id
-          in: path
-        - schema:
-            type: string
-            description: The ID of the resource.
-          required: true
-          name: unit_id
-          in: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: string
-                number:
-                  type: string
-                  description: The unit number
-                bedrooms:
-                  type: string
-                  description: The number of bedrooms
-                bathrooms:
-                  type: string
-                  description: The number of bathrooms
-                square_feet:
-                  type: integer
-                  minimum: 0
-                  description: The square footage of the unit
-                building_number:
-                  type: string
-                  description: The building number
-                building_name:
-                  type: string
-                  description: The building name
-                floor_plan_code:
-                  type: string
-                  description: The floor plan code
-                floor_plan_name:
-                  type: string
-                  description: The floor plan name
-                floor:
-                  type: string
-                  description: Floor number/name
-                street_address_1:
-                  type: string
-                  description: The street address line 1
-                street_address_2:
-                  type: string
-                  description: The street address line 2
-                city:
-                  type: string
-                  description: The city
-                state:
-                  type: string
-                  description: The state
-                zip:
-                  type: string
-                  description: The zip code
-                is_available:
-                  type: boolean
-                  description: Whether the unit is available
-                is_furnished:
-                  type: boolean
-                  description: Whether the unit is furnished
-                is_vacant:
-                  type: boolean
-                  description: Whether the unit is vacant
-                custom_data:
-                  type: object
-                  properties: {}
-                  description: Custom data
-              required:
-                - id
-      responses:
-        "200":
-          description: Update a unit for a property.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  job_id:
-                    type: string
-                    description: The ID of the job created to handle this operation
-                  data:
-                    type: object
-                    properties: {}
-                    description: Returned data from the operation. This is dependent on the vendor
-                      specific endpoint's returned data.
-                required:
-                  - job_id
-                  - data
-        "400":
-          description: invalid input
   /v1/admin/integrations/{integration_id}/job-schedules/{job_schedule_id}:
     get:
-      x-fern-ignore: true
       tags:
         - admin
       summary: Get job schedule by id
