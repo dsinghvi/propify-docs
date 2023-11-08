@@ -27,6 +27,8 @@ navigation:
           path: ./docs/pages/authentication.mdx
         - page: Custom Data Objects
           path: ./docs/pages/custom-data.mdx
+        - page: Deleted Records
+          path: ./docs/pages/deleted-records.mdx
         - page: Filtering Results 
           path: ./docs/pages/filtering.mdx
         - page: Pagination

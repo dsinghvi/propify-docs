@@ -1,0 +1,14 @@
+## Overview
+
+The following is a summary of how Propexo thinks about and addresses the concept of deleted records from Property Management Systems.
+
+## What is a deleted record?
+A deleted record is when a property manager deletes a full record of data in their Property Management System. This could take the form of deleting a resident, lease, unit, application, etc. It refers to the complete deletion of an entity (meaning an entire resident, lease, etc.), not removing a field from a record (e.g. deleting a resident's middle name).
+
+## The Challenge
+The absense of evidence is not evidence of absense. In other words, just because we don't see data, doesn't mean it has been deleted. There are several factors that could lead to missing, previously seen records. The most likely (yet not sole) reason for missing data is date range filters (implicit, explicit, or undocumented). Some PMSs expose date range filters, some do not, and others include them but do not document their use or impact to results.
+
+## The Solution
+Propexo acts as a caching layer for your data. Since PMS APIs can be unreliable, we hydrate our cache with data that we receive from the PMS, and only delete data by request. This means that we will never delete data that we have previously seen. This is a key feature of Propexo that allows us to provide a reliable, consistent, and accurate data set.
+
+Although we don't delete data, we do record each time we see data during every sync against a PMS. We expose this as a timestamp in a field called `last_seen` on each of our data models. We are careful not to make assumptions about data so that you are fully empowered to make business decisions on your own. Many of our customers, however, choose to leverage the `last_seen` field to make decisions about whether or not to delete data in their own systems. For example, if a record has not been seen in more than 30 days, perhaps you want to treat it as having been deleted. It will continue to exist in Propexo, but you can choose to ignore it.
