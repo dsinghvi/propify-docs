@@ -76,8 +76,8 @@ colors:
 logo:
   height: 40
   href: https://propexo.com/
-  dark: ./docs/assets/logo_dark.png
-  light: ./docs/assets/logo_light.png
+  dark: ./docs/assets/propexo-dark-bg.png
+  light: ./docs/assets/propexo-lt-bg.png
 
 typography:
   headingsFont:
