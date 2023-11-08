@@ -11,15 +11,13 @@ If your business helps fill vacant units, you may find it valuable to share avai
 
 **1. Receive input from your UI about prospect requirements**
 
-**2. Read amenities from Propify API with a filter of `name_normalized` with a value of `INTERNET`**
+**2. Read amenities from Propexo API with a filter of `name_normalized` with a value of `INTERNET`**
 
 <CodeBlocks>
     <CodeBlock title = "GET /amenities Request">
     ```bash
     curl --request GET \
-    --url 'https://api.getpropify.com/v1/amenities?name_normalized=INTERNET' \
-    --header 'propify-api-key: <propify-api-key>' \
-    --header 'propify-api-secret: <propify-api-secret>'
+    --url 'https://api.propexo.com/v1/amenities?name_normalized=INTERNET'
     ```
     </CodeBlock>
     <CodeBlock title =  "Sample Amenities Response">
@@ -33,7 +31,7 @@ If your business helps fill vacant units, you may find it valuable to share avai
     },
     "results": [
         {
-        "id": "<propify_id>",
+        "id": "<propexo>",
         "created_at": "2019-08-24T14:15:22Z",
         "updated_at": "2019-08-24T14:15:22Z",
         "x_id": "12345",
@@ -53,15 +51,13 @@ If your business helps fill vacant units, you may find it valuable to share avai
     </CodeBlock>
 </CodeBlocks>
 
-**3. Read units from Propify API, filtering by `x_property_id` and the Propify `integration_id`**
+**3. Read units from Propexo API, filtering by `x_property_id` and the Propexo `integration_id`**
 
 <CodeBlocks>
     <CodeBlock title = "GET /units Request" >
     ```bash
     curl --request GET \
-    --url 'https://api.getpropify.com/v1/units?x_property_id=3456&integration_id=xyz' \
-    --header 'propify-api-key: <propify-api-key>' \
-    --header 'propify-api-secret: <propify-api-secret>'
+    --url 'https://api.propexo.com/v1/units?x_property_id=3456&integration_id=xyz'
     ```
     </CodeBlock>
     <CodeBlock title = "Sample Units Response">
@@ -75,7 +71,7 @@ If your business helps fill vacant units, you may find it valuable to share avai
     },
     "results": [
         {
-        "id": "<propify_id>",
+        "id": "<propexo>",
         "created_at": "2019-08-24T14:15:22Z",
         "updated_at": "2019-08-24T14:15:22Z",
         "x_id": "1234",

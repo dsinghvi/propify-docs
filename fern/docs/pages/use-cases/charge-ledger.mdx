@@ -16,9 +16,7 @@ Your business may find it valuable to add charges directly to a resident's payme
 <CodeBlock title="Example transaction for $50.00">
 ```bash 
 curl --request POST \
-  --url https://api.getpropify.com/v1/transactions \
-  --header 'propify-api-key: <propify-api-key>' \
-  --header 'propify-api-secret: <propify-api-secret>' \
+  --url https://api.propexo.com/v1/transactions \
   --data '{
     "integration_id": "<integration_id>",
     "invoice_date": "2023-07-15",

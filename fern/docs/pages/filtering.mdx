@@ -4,7 +4,7 @@ Use query parameters to filter results on requests that return arrays of objects
 
 ## Example 
 
-One example of filtering is finding all residents associated with a lease (by the Propify lease ID). This can be done by filtering on the `lease_id` property.
+One example of filtering is finding all residents associated with a lease (by the Propexo lease ID). This can be done by filtering on the `lease_id` property.
 
 <CodeBlock title="Example filter">
 ```json 
@@ -13,5 +13,5 @@ One example of filtering is finding all residents associated with a lease (by th
 </CodeBlock>
 
 <Callout intent="info">
-Note: When filtering using external IDs (e.g. `x_*`), you will be required to supply the Propify integration ID (`integration_id`) and the external property ID (`x_property_id`) as part of your query string. This is to ensure that you are only getting records associated with your intended result set — in an effort to account for property management systems using auto-incrementing integers as their IDs.
+Note: When filtering using external IDs (e.g. `x_*`), you will be required to supply the Propexo integration ID (`integration_id`) and the external property ID (`x_property_id`) as part of your query string. This is to ensure that you are only getting records associated with your intended result set — in an effort to account for property management systems using auto-incrementing integers as their IDs.
 </Callout>

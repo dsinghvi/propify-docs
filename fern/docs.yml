@@ -1,7 +1,7 @@
 instances:
   - url: propify.docs.buildwithfern.com
 
-title: Propify | Docs
+title: Propexo | Docs
 
 tabs: 
   documentation: 
@@ -64,7 +64,7 @@ navigation:
 navbar-links: 
   - type: primary
     text: Login
-    url: https://app.getpropify.com/
+    url: https://app.propexo.com/
 
 colors:
   accentPrimary:
@@ -73,7 +73,7 @@ colors:
 
 logo:
   height: 40
-  href: https://getpropify.com/
+  href: https://propexo.com/
   dark: ./docs/assets/logo_dark.png
   light: ./docs/assets/logo_light.png
 

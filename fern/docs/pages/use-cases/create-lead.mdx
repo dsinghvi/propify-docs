@@ -12,9 +12,7 @@ If your business generates or screens prospective tenants to fill vacant units, 
 **Generate a new lead**
 ```bash
 curl --request POST \
-  --url https://api.getpropify.com/v1/leads \
-  --header 'propify-api-key: <propify-api-key>' \
-  --header 'propify-api-secret: <propify-api-secret>' \
+  --url https://api.propexo.com/v1/leads \
   --data '{
     "integration_id": "<integration_id>",
     "last_name": "Doe",
@@ -28,9 +26,7 @@ curl --request POST \
 **Update existing lead**
 ```bash
 curl --request PUT \
-  --url 'https://api.getpropify.com/v1/leads/<lead_id>' \
-  --header 'propify-api-key: <propify-api-key>' \
-  --header 'propify-api-secret: <propify-api-secret>' \
+  --url 'https://api.propexo.com/v1/leads/<lead_id>' \
   --data '{
     "last_name": "Doe",
     "first_name": "Jill",
