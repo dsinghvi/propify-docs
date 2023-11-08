@@ -18,7 +18,7 @@ paths:
   /v1/admin/data-diffs:
     get:
       tags:
-        - admin
+        - settings
       summary: Get all data diffs
       description: Get all data diffs
       security:
@@ -13126,7 +13126,7 @@ paths:
   /v1/admin/job-logs/{job_log_id}:
     get:
       tags:
-        - admin
+        - settings
       summary: Get log by ID
       description: Get a single log record by log ID. A log will only have a single
         associated job. This is different than querying by job ID, which could
@@ -13254,7 +13254,7 @@ paths:
   /v1/admin/job-logs/{job_log_id}/data:
     get:
       tags:
-        - admin
+        - settings
       summary: Get a link to the job log raw request and response data
       description: Get a link to the job log raw request and response data
       security:
@@ -13279,7 +13279,7 @@ paths:
   /v1/admin/logs/jobs:
     get:
       tags:
-        - admin
+        - settings
       summary: Get logs
       description: Get all logs
       security:
@@ -13415,7 +13415,7 @@ paths:
   /v1/admin/logs/jobs/{id}:
     get:
       tags:
-        - admin
+        - settings
       summary: Get logs by job ID
       description: Get all logs for a job ID. This returns an array because jobs can
         have multiple log entries (in the case of retries on failed jobs).
@@ -13549,7 +13549,7 @@ paths:
   /v1/admin/integrations:
     get:
       tags:
-        - admin
+        - settings
       summary: Get all my integrations
       description: Get all my integrations
       security:
@@ -13840,7 +13840,7 @@ paths:
           description: invalid input
     post:
       tags:
-        - admin
+        - settings
       summary: Create an integration
       description: Create an integration
       security:
@@ -14193,7 +14193,7 @@ paths:
   /v1/admin/users:
     get:
       tags:
-        - admin
+        - settings
       summary: Get all my users
       description: Get all my users
       security:
@@ -14315,7 +14315,7 @@ paths:
           description: invalid input
     post:
       tags:
-        - admin
+        - settings
       summary: Create a user
       description: Create a user
       security:
@@ -14405,7 +14405,7 @@ paths:
   /v1/admin/users/{id}:
     get:
       tags:
-        - admin
+        - settings
       summary: Get user by id
       description: Get user by id
       security:
@@ -14527,7 +14527,7 @@ paths:
           description: invalid input
     put:
       tags:
-        - admin
+        - settings
       summary: Update a user
       description: Update a user
       security:
@@ -15001,7 +15001,7 @@ paths:
   /v1/admin/integrations/{integration_id}:
     get:
       tags:
-        - admin
+        - settings
       summary: Get integration by id
       description: Get integration by id
       security:
@@ -15273,7 +15273,7 @@ paths:
           description: invalid input
     put:
       tags:
-        - admin
+        - settings
       summary: Update an integration
       description: Update an integration
       security:
@@ -15614,7 +15614,7 @@ paths:
           description: invalid input
     delete:
       tags:
-        - admin
+        - settings
       summary: Delete an integration
       description: Delete an integration
       security:
@@ -15650,7 +15650,7 @@ paths:
   /v1/admin/integrations/{integration_id}/job-schedules:
     get:
       tags:
-        - admin
+        - settings
       summary: Get job schedules by integration id
       description: Get job schedules by integration id
       security:
@@ -15792,7 +15792,7 @@ paths:
   /v1/admin/integrations/{integration_id}/job-schedules/{job_schedule_id}:
     get:
       tags:
-        - admin
+        - settings
       summary: Get job schedule by id
       description: Get job schedule by id
       security:
