@@ -36,13 +36,17 @@ app.post('/webhook/leases', async (req, res) => {
 ```
 </CodeBlock>
 
+<Callout intent = "info">
+The above example is intended to be a simple example of how webhooks work. In practice, you will want to use a more robust system to receive and process webhooks. For example, you would probably want to use a queueing system to ensure that you don't lose any webhook events if your system is down.
+</Callout>
+
 Then, in Propexo, you can register your webhook URL and subscribe to the events you care about ("Data Update" on the `leases` model in this example).
 
 ![Webhook setup in Propexo](https://fern-image-hosting.s3.amazonaws.com/propify-webhook-lease-setup.png)
 
 Now each time Propexo identifies a change in the leases model for a particular lease in your integration, you will be notified via a POST request to your webhook URL.
 
-Here is an example of how Propexo might send a webhook request to your system:
+Below is an example of how Propexo might send a webhook request to your system. Note, this is a simplified payload for the example and is not intended to represent a complete webhook payload.
 
 <CodeBlock title="Example webhook sent from Propexo">
 ```bash 
@@ -64,10 +68,6 @@ propexo-signature: <payload_signature>
 }
 ```
 </CodeBlock>
-
-<Callout intent = "info">
-The above example is intended to be a simple example of how webhooks work. In practice, you will want to use a more robust system to receive and process webhooks. For example, you would probably want to use a queueing system to ensure that you don't lose any webhook events if your system is down.
-</Callout>
 
 ## Important Note for the DATA_NEW event
 
