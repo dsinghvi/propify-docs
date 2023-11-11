@@ -1,7 +1,22 @@
 **Write requests are used to create or update data.**
 
 ## Overview
-With Propexo, you can read, create and update data to and from your customer's property management system (PMS). To understand how Propfiy handles write requests, it is important to understand how Propexo thinks about source-of-truth relationships.
+With Propexo, you can read, create and update data to and from your customer's Property Management System (PMS). To understand how Propexo handles write requests, it is important to understand how Propexo thinks about source-of-truth relationships.
 
 ## Source of Truth
-Propexo does not act as the source of truth. Instead, we rely solely on each PMS to maintain accurate records. This means that when you write data to Propexo's API, we will pass the request along to the PMS (immediately) and log the response once we have it. For our enterprise customers, we request an updated version of that record within a few seconds so that Propexo data for that record is as fresh as possible. Since this is not enabled for all models across all PMSs, please ask us about this feature for your use case.
+Propexo does not act as the source of truth. Instead, we rely solely on each PMS to maintain accurate records. This means that when you write data to Propexo's API, we will pass the request along to the PMS and log the response asynchronously once we have it. For our enterprise customers, we request an updated version of that record within a few seconds so that Propexo data for that record is as fresh as possible. Since this is not enabled for all models across all PMSs, please ask us about this feature for your use case.
+
+## Generic Endpoints
+As a unified API solution, Propexo offers generic endpoints for all write (POST/PUT) requests. This means that you can use the same endpoint for all write requests, regardless of the Property Management System or data model. However, different PMSs require or restrict different sets of data in the request payload which introduces an element of complexity in maintaining a single entry point. To address this, Propexo has developed some utilities (outlined below) to help with your development process.
+
+## How do generic endpoints work?
+
+Generic endpoints are designed to be a single point of entry across all Property Management Systems. For example, if you want to update a value on the `applicant` model, you would simple `PUT` to `/applicant/{id}`. Under the hood, Propexo will perform a lookup in our database to determine which PMS is associated with the passed `id`, and we will automatically proxy the request to the appropriate PMS.
+
+## Generic Endpoint Utilities
+
+* **Private Documentation** — Propexo maintains a private documentation site (for customers only) that contains all of the information you need to know about the data models and endpoints for each PMS. This documentation is available to all of our customers and is updated regularly as we add new PMSs and features. Please contact us for access to this documentation. These private docs address the following:
+    * **Granular PMS functionality** — Not all functionality is permitted by every PMS. For example, some PMSs allow you to update a `notes` field on the residents model, but some do not. This could impact your development plans, so it is important to know what is and is not possible with each PMS. Our private docs detail which field are and are not available for each PMS.
+    * **High Level PMS functionality** — In addition to granular functionality, we also provide a high level overview of the functionality available for each PMS. For example, some PMSs allow you to create (`POST`) a new `unit`, while many do not. Propexo's private docs will inform you when certain high level functionality is not permitted by a PMS.
+
+* **Validation Utility** — There are cases where our customers want to force a request payload that may not meet validation requirements for a certain PMS, but would be ok for another. For example, our generic `POST /residents` endpoint exposes a `notes` field that is not available on all PMSs. If you want to update the `notes` field on a resident, but the PMS does not support this, you can use our validation utility to force the request through. For PMSs that support the notes field, we will pass the value through. For PMSs that do not support the notes field, we will remove it from the payload so that the request does not fail PMS validation. To use this utility, simply add `?ignore_unknown_fields=true` to the end of your request URL.
