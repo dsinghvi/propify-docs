@@ -76,6 +76,8 @@ When you subscribe to a `DATA_NEW` webhook event, it is automatically disabled f
 ## Sequencing
 Oftentimes Propexo needs to fully hydrate data over more than one request to a Property Management System. For example, several integrations provide a minimal set of data for residents, applicants, or leads. The minimal dataset might only include an ID and name. We then need to make a subsequent request to retrieve additional information like phone and email. In these cases, you should fully test to ensure that you are receiving all of the data you need with the subscribed webhook event. Some customers only need to subscribe to the `DATA_NEW` event, others may want to subscribe to the `DATA_UPDATE` event as well.
 
+Optionally, many customers use webhooks as a notification system and then query the associated API endpoint to retrieve a full data record. For example, you may subscribe to the `DATA_UPDATE` event for the `leases` model. When you receive a webhook event, you can then query the `/leases/:id` endpoint to retrieve the full lease record.
+
 ## Signed Payloads
 
 Propexo signs every webhook payload. This signature is sent in the `propexo-signature` header. You can use this signature to verify that the webhook was sent by Propexo and not a malicious third party.
