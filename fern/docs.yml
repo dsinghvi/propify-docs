@@ -1,5 +1,6 @@
 instances:
   - url: propexo.docs.buildwithfern.com
+    custom-domain: docs.propexo.com
 
 title: Propexo | Docs
 
